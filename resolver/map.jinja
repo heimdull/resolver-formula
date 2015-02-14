@@ -1,0 +1,16 @@
+﻿{% set map = {
+	'FreeBSD': {
+		'owner': 'root',
+		'group': 'wheel',
+	},
+	'Debian':
+		'owner': 'root',
+		'group': 'root',
+	},
+} %}
+
+{% if grains.get('saltversion', '').startswith('0.17') %}
+{% set ntp = salt['grains.filter_by'](map, merge=salt['pillar.get']('ntp:lookup')) %}
+{% else %}
+{% set ntp = map.get(grains.os_family) %}
+{% endif %}
