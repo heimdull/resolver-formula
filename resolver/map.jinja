@@ -10,7 +10,7 @@
 } %}
 
 {% if grains.get('saltversion', '').startswith('0.17') %}
-{% set ntp = salt['grains.filter_by'](map, merge=salt['pillar.get']('ntp:lookup')) %}
+{% set resolver = salt['grains.filter_by'](map, merge=salt['pillar.get']('resolver:lookup')) %}
 {% else %}
-{% set ntp = map.get(grains.os_family) %}
+{% set resolver = map.get(grains.os_family) %}
 {% endif %}
